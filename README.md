@@ -1,4 +1,4 @@
-# Central System
+# Backend
 
 ## Class Diagram
 
@@ -11,17 +11,39 @@
     Trip *-- Location : to
     Trip *-- Drone
     Trip --o Report
-    Drone <|-- IGPS
-    Drone <|-- IBattery
-    Drone <|-- IScale
-    Drone <|-- IHeading
     Report *-- ReportCategory
     ProhibitedZone *-- Location
+    User --o Business : admin
+    User *--o Business : employee
+    Product *-- Business
+    Order *--* OrderDetail
+    OrderDetail *--* Product
+
+    class OrderDetail {
+        +amount: int
+    }
+
+    class Stats {
+        +total_trips: int
+        +today_trips: int
+        +weekend_trips: int
+        +monthly_trips: int
+
+        +avg_delivery_time: float
+        +avg_packing_time: float
+
+        +avg_battery_consumption_per_km: float
+
+        +cancellation_rate: float
+
+        +accounts: int
+    }
 
     class Order {
         +number: int
         +date: date_time
         +state: OrderState
+        +price: float
     }
     
     class Trip {
@@ -30,9 +52,6 @@
         +distance: float
         +est_time: float
         +state: TravelState
-        +cost_trip: float
-        +delivered_price: float
-        +total_price: float
         +packing_time: float | null
         +battery_init: float | null
         +arrival_time: float | null
@@ -52,6 +71,19 @@
         +name: string | null
         +latitude: float 
         +longitude: float 
+    }
+
+    class Product {
+        +name: string
+        +description: string 
+        +price: float 
+    }
+
+    class Business {
+        +name: string
+        +description: string
+        +amount_trips: int
+        +amount_unique_trips: int
     }
 
     class ProhibitedZone {
@@ -106,25 +138,7 @@
         +Uncomplete
     }
 
-    class IGPS {
-        <<interface>>
-        -get_location()
-    }
 
-    class IBattery {
-        <<interface>>
-        -get_battery()
-    }
-
-    class IScale {
-        <<interface>>
-        -get_weight()
-    }
-
-    class IHeading{
-        <<interface>>
-        -get_heading()
-    }
 ```
 ## Trip State Diagram
 
