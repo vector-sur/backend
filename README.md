@@ -15,6 +15,7 @@ classDiagram
     ProhibitedZone *-- Location
     User --o Business : admin
     User *--o Business : employee
+    User --o Drone : owns
     Product *-- Business
     Order *--* OrderDetail
     OrderDetail *--* Product
@@ -116,6 +117,7 @@ classDiagram
     class Drone {
         +name: string
         +number: int
+        +user_id: int
     }
 
     class Report {
@@ -204,13 +206,11 @@ The backend uses **JWT (JSON Web Tokens)** for authentication with **bcrypt** fo
 - **Hashing Algorithm**: bcrypt with salt (cost factor: 12)
 - **Salt**: Automatically generated and embedded in the hash by bcrypt
 - **Hash Format**: `$2b$12$[22-char-salt][31-char-hash]`
-- **Example hash**: `$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYqNRx8QVVW`
 
 ### JWT Configuration
 
 - **Algorithm**: HS256 (HMAC with SHA-256)
-- **Token Expiration**: 24 hours
-- **Secret Key**: Stored in environment variable (change in production!)
+- **Token Expiration**: 1 hour
 
 ### API Endpoints
 

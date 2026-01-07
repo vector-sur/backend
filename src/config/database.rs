@@ -4,8 +4,8 @@ use std::time::Duration;
 /// Creates and returns a MySQL connection pool.
 pub async fn create_pool() -> Result<MySqlPool, sqlx::Error> {
     // Load the database URL from the .env file.
-    let database_url = std::env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be defined in the .env file");
+    let database_url =
+        std::env::var("DATABASE_URL").expect("DATABASE_URL must be defined in the .env file");
 
     // Load the maximum number of connections from the .env file.
     let max_connections = std::env::var("MAX_CONNECTIONS")
