@@ -211,16 +211,3 @@ The backend uses **JWT (JSON Web Tokens)** for authentication with **bcrypt** fo
 
 - **Algorithm**: HS256 (HMAC with SHA-256)
 - **Token Expiration**: 1 hour
-
-To protect a route, simply add `Claims` as a parameter:
-
-```rust
-async fn protected_route(claims: Claims) -> Json<Response> {
-    // claims.sub contains the user_id
-    // claims.username contains the username
-    Json(Response {
-        user_id: claims.sub,
-        username: claims.username,
-    })
-}
-```
