@@ -1,13 +1,24 @@
+use super::login::{AppState, AuthResponse};
 use crate::middleware::auth::{create_token, hash_password};
 use crate::models::user::RegisterRequest;
-use super::login::{AppState, AuthResponse};
 use axum::{
     extract::{Json, State},
     http::StatusCode,
 };
 
 // Register endpoint
-pub async fn register(
+// Register endpoint
+#[utoipa::path(
+    post,
+    path = "/auth/register",
+    request_body = RegisterRequest,
+    responses(
+        (status = OK, description = "Registration successful", body = AuthResponse),
+        (status = CONFLICT, description = "Username already exists"),
+        (status = INTERNAL_SERVER_ERROR, description = "Internal server error")
+    )
+)]
+pub async fn register_handler(
     State(state): State<AppState>,
     Json(payload): Json<RegisterRequest>,
 ) -> Result<Json<AuthResponse>, StatusCode> {

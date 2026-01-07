@@ -12,13 +12,13 @@ pub struct AppState {
 }
 
 // Request/Response types
-#[derive(Deserialize)]
+#[derive(Deserialize, utoipa::ToSchema)]
 pub struct LoginRequest {
     pub username: String,
     pub password: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, utoipa::ToSchema)]
 pub struct AuthResponse {
     pub token: String,
     pub user_id: i32,
@@ -26,6 +26,16 @@ pub struct AuthResponse {
 }
 
 // Login endpoint
+#[utoipa::path(
+    post,
+    path = "/auth/login",
+    request_body = LoginRequest,
+    responses(
+        (status = OK, description = "Login successful", body = AuthResponse),
+        (status = UNAUTHORIZED, description = "Invalid credentials"),
+        (status = INTERNAL_SERVER_ERROR, description = "Internal server error")
+    )
+)]
 pub async fn login(
     State(state): State<AppState>,
     Json(payload): Json<LoginRequest>,

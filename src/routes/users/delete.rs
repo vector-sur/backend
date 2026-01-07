@@ -1,13 +1,13 @@
 use crate::middleware::auth::Claims;
 use crate::routes::users::login::AppState;
 use axum::{
+    Json,
     extract::{Path, State},
     http::StatusCode,
-    Json,
 };
 use serde::Serialize;
 
-#[derive(Serialize)]
+#[derive(Serialize, utoipa::ToSchema)]
 pub struct DeleteUserResponse {
     pub message: String,
     pub user_id: i32,
@@ -15,6 +15,22 @@ pub struct DeleteUserResponse {
 
 // Delete (deactivate) user endpoint - Admin only
 // DELETE /users/:id
+#[utoipa::path(
+    delete,
+    path = "/users/{id}",
+    params(
+        ("id" = i32, Path, description = "User database id to delete")
+    ),
+    responses(
+        (status = OK, description = "User deactivated successfully", body = DeleteUserResponse),
+        (status = FORBIDDEN, description = "User is not an admin"),
+        (status = NOT_FOUND, description = "User not found or already inactive"),
+        (status = INTERNAL_SERVER_ERROR, description = "Internal server error")
+    ),
+    security(
+        ("jwt" = [])
+    )
+)]
 pub async fn delete_user(
     claims: Claims,
     State(state): State<AppState>,
@@ -40,13 +56,10 @@ pub async fn delete_user(
     }
 
     // Deactivate the user by setting active = FALSE
-    let result = sqlx::query!(
-        "UPDATE users SET active = FALSE WHERE id = ?",
-        user_id
-    )
-    .execute(&state.db)
-    .await
-    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let result = sqlx::query!("UPDATE users SET active = FALSE WHERE id = ?", user_id)
+        .execute(&state.db)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     // Check if any row was affected
     if result.rows_affected() == 0 {
