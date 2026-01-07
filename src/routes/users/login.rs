@@ -1,28 +1,14 @@
 use crate::middleware::auth::{create_token, verify_password};
+use crate::models::user::{AuthResponse, LoginRequest};
 use axum::{
     extract::{Json, State},
     http::StatusCode,
 };
-use serde::{Deserialize, Serialize};
 use sqlx::mysql::MySqlPool;
 
 #[derive(Clone)]
 pub struct AppState {
     pub db: MySqlPool,
-}
-
-// Request/Response types
-#[derive(Deserialize, utoipa::ToSchema)]
-pub struct LoginRequest {
-    pub username: String,
-    pub password: String,
-}
-
-#[derive(Serialize, utoipa::ToSchema)]
-pub struct AuthResponse {
-    pub token: String,
-    pub user_id: i32,
-    pub username: String,
 }
 
 // Login endpoint
