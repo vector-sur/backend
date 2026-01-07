@@ -1,5 +1,6 @@
 mod config;
 mod middleware;
+mod models;
 mod routes;
 
 use axum::{
@@ -22,7 +23,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         // Public routes
         .route("/auth/login", post(login))
         .route("/auth/register", post(register))
-        // test
+        // Protected routes
         .route("/protected", get(protected))
         .with_state(state);
 

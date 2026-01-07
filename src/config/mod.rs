@@ -14,8 +14,7 @@ pub fn get_server_addr() -> SocketAddr {
 
 /// Returns the JWT secret key from the environment variables.
 pub fn get_jwt_secret() -> String {
-    std::env::var("JWT_SECRET")
-        .expect("JWT_SECRET must be defined in the .env file")
+    std::env::var("JWT_SECRET").expect("JWT_SECRET must be defined in the .env file")
 }
 
 /// Returns the JWT expiration time in hours from the environment variables.
