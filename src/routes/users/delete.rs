@@ -1,0 +1,60 @@
+use crate::middleware::auth::Claims;
+use crate::routes::users::login::AppState;
+use axum::{
+    extract::{Path, State},
+    http::StatusCode,
+    Json,
+};
+use serde::Serialize;
+
+#[derive(Serialize)]
+pub struct DeleteUserResponse {
+    pub message: String,
+    pub user_id: i32,
+}
+
+// Delete (deactivate) user endpoint - Admin only
+// DELETE /users/:id
+pub async fn delete_user(
+    claims: Claims,
+    State(state): State<AppState>,
+    Path(user_id): Path<i32>,
+) -> Result<Json<DeleteUserResponse>, StatusCode> {
+    // Check if the requesting user is an admin
+    let requesting_user_id = claims
+        .sub
+        .parse::<i32>()
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let is_admin = sqlx::query!(
+        "SELECT EXISTS(SELECT 1 FROM admins WHERE user_id = ?) as is_admin",
+        requesting_user_id
+    )
+    .fetch_one(&state.db)
+    .await
+    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    // Check if is_admin is 1 (true)
+    if is_admin.is_admin == 0 {
+        return Err(StatusCode::FORBIDDEN);
+    }
+
+    // Deactivate the user by setting active = FALSE
+    let result = sqlx::query!(
+        "UPDATE users SET active = FALSE WHERE id = ?",
+        user_id
+    )
+    .execute(&state.db)
+    .await
+    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    // Check if any row was affected
+    if result.rows_affected() == 0 {
+        return Err(StatusCode::NOT_FOUND);
+    }
+
+    Ok(Json(DeleteUserResponse {
+        message: format!("User {} has been deactivated", user_id),
+        user_id,
+    }))
+}

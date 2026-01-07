@@ -1,6 +1,6 @@
 use crate::middleware::auth::{create_token, hash_password};
 use crate::models::user::RegisterRequest;
-use crate::routes::login::{AppState, AuthResponse};
+use super::login::{AppState, AuthResponse};
 use axum::{
     extract::{Json, State},
     http::StatusCode,

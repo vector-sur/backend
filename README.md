@@ -20,6 +20,7 @@ classDiagram
     Order *--* OrderDetail
     OrderDetail *--* Product
     User -- Person
+    Admin *-- User
 
     class Person {
         +name: string
@@ -112,6 +113,11 @@ classDiagram
       +username: string
       +password_hash: string
       +salt: string
+      +active: boolean
+    }
+
+    class Admin {
+      +user_id: int
     }
 
     class Drone {
