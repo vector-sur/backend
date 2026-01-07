@@ -3,7 +3,7 @@
 ## Class Diagram
 
 ```mermaid
- classDiagram
+classDiagram
 
     Order *-- User
     Trip *--  Order
@@ -18,6 +18,14 @@
     Product *-- Business
     Order *--* OrderDetail
     OrderDetail *--* Product
+    User -- Person
+
+    class Person {
+        +name: string
+        +lastname: string
+        +phone: int
+        +email: string | null
+    }
 
     class OrderDetail {
         +amount: int
@@ -93,22 +101,21 @@
         +radius: float
     }
 
-    class User {
-      +name: string 
-      +lastname: string 
-      +phone: int
-      +email: string | null 
+    class UserStats {
+        +trips: int
+        +canceled_trip: int
+        +last_login: int
+    }
 
-      +reqTravel()
+    class User {
+      +username: string
+      +password_hash: string
+      +salt: string
     }
 
     class Drone {
         +name: string
         +number: int
-
-        -get_battery()
-        -get_location()
-        -start_trip()
     }
 
     class Report {
@@ -137,8 +144,6 @@
         +Canceled
         +Uncomplete
     }
-
-
 ```
 ## Trip State Diagram
 
@@ -153,4 +158,132 @@ stateDiagram-v2
     Canceled --> [*]
     Requested --> Delivered: Drone.start_return_trip()
     Finished --> [*]
+```
+
+```
+src/
+├── main.rs                 
+├── lib.rs                  
+├── config/
+│   ├── mod.rs             
+│   └── database.rs        
+├── models/
+│   ├── mod.rs
+│   ├── drone.rs           
+│   ├── user.rs
+│   └── trip.rs
+├── handlers/              
+│   ├── mod.rs
+│   ├── drone.rs           
+│   ├── user.rs
+│   └── trip.rs
+├── routes/                
+│   ├── mod.rs
+│   ├── drone.rs           
+│   ├── user.rs
+│   └── trip.rs
+├── services/              
+│   ├── mod.rs
+│   ├── drone_service.rs
+│   └── trip_service.rs
+├── middleware/
+│   ├── mod.rs
+│   ├── auth.rs           
+│   └── logging.rs
+└── utils/
+    ├── mod.rs
+    └── error.rs         
+```
+
+## Authentication
+
+The backend uses **JWT (JSON Web Tokens)** for authentication with **bcrypt** for password hashing.
+
+### Password Security
+
+- **Hashing Algorithm**: bcrypt with salt (cost factor: 12)
+- **Salt**: Automatically generated and embedded in the hash by bcrypt
+- **Hash Format**: `$2b$12$[22-char-salt][31-char-hash]`
+- **Example hash**: `$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYqNRx8QVVW`
+
+### JWT Configuration
+
+- **Algorithm**: HS256 (HMAC with SHA-256)
+- **Token Expiration**: 24 hours
+- **Secret Key**: Stored in environment variable (change in production!)
+
+### API Endpoints
+
+#### Register
+```bash
+POST /auth/register
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "name": "John",
+  "lastname": "Doe",
+  "phone": 1234567890,
+  "email": "john@example.com",
+  "password": "your-password"
+}
+```
+
+Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user_id": 1,
+  "username": "johndoe"
+}
+```
+
+#### Login
+```bash
+POST /auth/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "your-password"
+}
+```
+
+Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user_id": 1,
+  "username": "johndoe"
+}
+```
+
+#### Protected Endpoint Example
+```bash
+GET /protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+Response:
+```json
+{
+  "message": "You are authenticated!",
+  "user_id": "1",
+  "username": "johndoe"
+}
+```
+
+### Using Authentication in Routes
+
+To protect a route, simply add `Claims` as a parameter:
+
+```rust
+async fn protected_route(claims: Claims) -> Json<Response> {
+    // claims.sub contains the user_id
+    // claims.username contains the username
+    Json(Response {
+        user_id: claims.sub,
+        username: claims.username,
+    })
+}
 ```
