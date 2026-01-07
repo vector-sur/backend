@@ -9,3 +9,12 @@ pub struct RegisterRequest {
     pub email: String,
     pub password: String,
 }
+
+#[derive(Deserialize, utoipa::ToSchema)]
+pub struct UpdateUserRequest {
+    pub name: Option<String>,
+    pub lastname: Option<String>,
+    pub phone: Option<i64>,
+    pub email: Option<String>,
+    pub password: Option<String>,
+}

@@ -168,44 +168,9 @@ stateDiagram-v2
     Finished --> [*]
 ```
 
-```
-src/
-├── main.rs                 
-├── lib.rs                  
-├── config/
-│   ├── mod.rs             
-│   └── database.rs        
-├── models/
-│   ├── mod.rs
-│   ├── drone.rs           
-│   ├── user.rs
-│   └── trip.rs
-├── handlers/              
-│   ├── mod.rs
-│   ├── drone.rs           
-│   ├── user.rs
-│   └── trip.rs
-├── routes/                
-│   ├── mod.rs
-│   ├── drone.rs           
-│   ├── user.rs
-│   └── trip.rs
-├── services/              
-│   ├── mod.rs
-│   ├── drone_service.rs
-│   └── trip_service.rs
-├── middleware/
-│   ├── mod.rs
-│   ├── auth.rs           
-│   └── logging.rs
-└── utils/
-    ├── mod.rs
-    └── error.rs         
-```
-
 ## Authentication
 
-The backend uses **JWT (JSON Web Tokens)** for authentication with **bcrypt** for password hashing.
+The backend uses **JWT** for authentication with **bcrypt** for password hashing.
 
 ### Password Security
 
