@@ -4,18 +4,19 @@ mod middleware;
 mod models;
 mod routes;
 
-use crate::routes::stats::stats_::__path_get_stats;
-use crate::routes::users::delete::__path_delete_user;
-use crate::routes::users::login::__path_login;
-use crate::routes::users::register::__path_register_handler;
-use crate::routes::users::update::__path_update_user;
+use crate::routes::{
+    stats::stats_::__path_get_stats, users::delete::__path_delete_user, users::login::__path_login,
+    users::register::__path_register_handler, users::update::__path_update_user,
+};
 use axum::{Router, routing::get};
-use routes::protected::protected;
-use routes::stats::stats_::get_stats;
-use routes::users::delete::delete_user;
-use routes::users::login::{AppState, login};
-use routes::users::register::register_handler;
-use routes::users::update::update_user;
+use routes::{
+    protected::protected,
+    stats::stats_::get_stats,
+    users::delete::delete_user,
+    users::login::{AppState, login},
+    users::register::register_handler,
+    users::update::update_user,
+};
 use std::error::Error;
 use utoipa::openapi::security::{HttpAuthScheme, HttpBuilder, SecurityScheme};
 use utoipa_axum::{router::OpenApiRouter, routes};
