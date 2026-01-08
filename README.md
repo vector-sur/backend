@@ -121,7 +121,8 @@ classDiagram
     class Product {
         +name: string
         +description: string 
-        +price: float 
+        +price: float
+        +active: boolean
     }
 
     class Business {

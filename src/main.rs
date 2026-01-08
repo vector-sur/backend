@@ -8,6 +8,9 @@ use crate::routes::{
     business::delete::__path_delete_business, business::list::__path_list_businesses,
     business::register::__path_register_business, business::update::__path_update_business,
     drones::list_drones::__path_list_drones, drones::register::__path_register_drone,
+    product::delete::__path_delete_product,
+    product::list_by_business::__path_list_products_by_business,
+    product::register::__path_register_product, product::update::__path_update_product,
     stats::stats_::__path_get_stats, users::delete::__path_delete_user, users::login::__path_login,
     users::register::__path_register_handler, users::update::__path_update_user,
 };
@@ -19,6 +22,10 @@ use routes::{
     business::update::update_business,
     drones::list_drones::list_drones,
     drones::register::register_drone,
+    product::delete::delete_product,
+    product::list_by_business::list_products_by_business,
+    product::register::register_product,
+    product::update::update_product,
     stats::stats_::get_stats,
     users::delete::delete_user,
     users::login::{AppState, login},
@@ -53,6 +60,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .routes(routes!(list_businesses))
         .routes(routes!(update_business))
         .routes(routes!(delete_business))
+        .routes(routes!(register_product))
+        .routes(routes!(update_product))
+        .routes(routes!(delete_product))
+        .routes(routes!(list_products_by_business))
         .split_for_parts();
 
     api.components
@@ -79,6 +90,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         TagBuilder::new()
             .name("Business")
             .description(Some("Business management endpoints"))
+            .build(),
+        TagBuilder::new()
+            .name("Products")
+            .description(Some("Product management endpoints"))
             .build(),
         TagBuilder::new()
             .name("Drones")
