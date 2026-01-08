@@ -43,9 +43,15 @@ classDiagram
     Trip *--  Order
     Trip *-- Location : from
     Trip *-- Drone
-    Trip --o Report
-    Report *-- ReportCategory
     ProhibitedZone *-- Location
+    ReportTrip *-- Report
+    ReportTrip *-- Trip
+    ReportUser *-- Report
+    ReportUser *-- User
+    ReportBusiness *-- Report
+    ReportBusiness *-- Business
+    ReportProduct *-- Report
+    ReportProduct *-- Product
     User --o Business : admin
     User *--o Business : employee
     User --o Drone : owns
@@ -168,13 +174,28 @@ classDiagram
     }
 
     class Report {
-        +timestamp: date_time
         +title: string
         +description: string
     }
 
-    class ReportCategory {
-        +name: string
+    class ReportTrip {
+        +report_id: int
+        +trip_id: int
+    }
+
+    class ReportUser {
+        +report_id: int
+        +user_id: int
+    }
+
+    class ReportBusiness {
+        +report_id: int
+        +business_id: int
+    }
+
+    class ReportProduct {
+        +report_id: int
+        +product_id: int
     }
 
     class TripState {

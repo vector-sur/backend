@@ -21,7 +21,6 @@ pub async fn get_stats(State(state): State<AppState>) -> Result<Json<Stats>, Sta
         Stats,
         r#"
         SELECT 
-            id,
             COALESCE(total_trips, 0) as total_trips,
             COALESCE(today_trips, 0) as today_trips,
             COALESCE(weekend_trips, 0) as weekend_trips,

@@ -3,7 +3,6 @@ use utoipa::ToSchema;
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct Stats {
-    pub id: i32,
     pub total_trips: i32,
     pub today_trips: i32,
     pub weekend_trips: i32,
