@@ -14,8 +14,9 @@ pub struct DeleteUserResponse {
     pub user_id: i32,
 }
 
-// Delete (deactivate) user endpoint - Admin only
-// DELETE /users/:id
+/// Delete (deactivate) user endpoint
+///
+/// - Admin only
 #[utoipa::path(
     delete,
     path = "/users/{id}",

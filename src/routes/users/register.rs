@@ -7,7 +7,9 @@ use axum::{
     http::StatusCode,
 };
 
-// Register endpoint
+/// Register endpoint
+///
+/// - Public
 #[utoipa::path(
     post,
     path = "/auth/register",

@@ -5,11 +5,14 @@ mod models;
 mod routes;
 
 use crate::routes::{
+    drones::list_drones::__path_list_drones, drones::register::__path_register_drone,
     stats::stats_::__path_get_stats, users::delete::__path_delete_user, users::login::__path_login,
     users::register::__path_register_handler, users::update::__path_update_user,
 };
 use axum::Router;
 use routes::{
+    drones::list_drones::list_drones,
+    drones::register::register_drone,
     stats::stats_::get_stats,
     users::delete::delete_user,
     users::login::{AppState, login},
@@ -35,6 +38,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .routes(routes!(delete_user))
         .routes(routes!(update_user))
         .routes(routes!(get_stats))
+        .routes(routes!(register_drone))
+        .routes(routes!(list_drones))
         .split_for_parts();
 
     api.components

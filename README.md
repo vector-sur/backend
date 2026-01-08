@@ -193,7 +193,7 @@ classDiagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Requested : User.request()
+    [*] --> Requested : User.request_trip()
     Requested --> Unfinished : Drone.system_error()
     Delivered --> Finished: Drone.finish_trip()
     Requested --> Canceled: User.cancel_trip()

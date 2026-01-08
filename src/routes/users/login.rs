@@ -11,7 +11,9 @@ pub struct AppState {
     pub db: MySqlPool,
 }
 
-// Login endpoint
+/// Login endpoint
+///
+/// - Public
 #[utoipa::path(
     post,
     path = "/auth/login",

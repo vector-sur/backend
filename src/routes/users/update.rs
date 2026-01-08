@@ -14,8 +14,9 @@ pub struct UpdateUserResponse {
     pub user_id: i32,
 }
 
-// Update user endpoint - User can update their own data or admin can update any user
-// PUT /users/:id
+/// Update user endpoint
+///
+/// User can update their own data or admin can update any user
 #[utoipa::path(
     put,
     path = "/users/{id}",
