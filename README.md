@@ -127,8 +127,9 @@ classDiagram
     class Business {
         +name: string
         +description: string
-        +amount_trips: int
-        +amount_unique_trips: int
+        +owner_id: int
+        +verified: boolean
+        +active: boolean
     }
 
     class ProhibitedZone {

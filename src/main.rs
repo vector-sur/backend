@@ -5,12 +5,18 @@ mod models;
 mod routes;
 
 use crate::routes::{
+    business::delete::__path_delete_business, business::list::__path_list_businesses,
+    business::register::__path_register_business, business::update::__path_update_business,
     drones::list_drones::__path_list_drones, drones::register::__path_register_drone,
     stats::stats_::__path_get_stats, users::delete::__path_delete_user, users::login::__path_login,
     users::register::__path_register_handler, users::update::__path_update_user,
 };
 use axum::Router;
 use routes::{
+    business::delete::delete_business,
+    business::list::list_businesses,
+    business::register::register_business,
+    business::update::update_business,
     drones::list_drones::list_drones,
     drones::register::register_drone,
     stats::stats_::get_stats,
@@ -43,6 +49,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .routes(routes!(get_stats))
         .routes(routes!(register_drone))
         .routes(routes!(list_drones))
+        .routes(routes!(register_business))
+        .routes(routes!(list_businesses))
+        .routes(routes!(update_business))
+        .routes(routes!(delete_business))
         .split_for_parts();
 
     api.components
@@ -65,6 +75,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         TagBuilder::new()
             .name("Users")
             .description(Some("User management endpoints"))
+            .build(),
+        TagBuilder::new()
+            .name("Business")
+            .description(Some("Business management endpoints"))
             .build(),
         TagBuilder::new()
             .name("Drones")
