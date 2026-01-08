@@ -54,7 +54,6 @@ classDiagram
     Order *--* OrderDetail
     OrderDetail *--* Product
     User -- Person
-    Admin *-- User
 
     class Person {
         +name: string
