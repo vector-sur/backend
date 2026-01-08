@@ -7,7 +7,7 @@ pub async fn increment_user_stats(pool: &MySqlPool) -> Result<(), sqlx::Error> {
     )
     .execute(pool)
     .await?;
-    
+
     Ok(())
 }
 
@@ -18,6 +18,6 @@ pub async fn deactivate_user_stats(pool: &MySqlPool) -> Result<(), sqlx::Error> 
     )
     .execute(pool)
     .await?;
-    
+
     Ok(())
 }

@@ -1,9 +1,9 @@
 use crate::models::stats::Stats;
 use crate::routes::users::login::AppState;
-use axum::{extract::State, http::StatusCode, Json};
+use axum::{Json, extract::State, http::StatusCode};
 
 /// Get global statistics
-/// 
+///
 /// Returns the global statistics including trip counts, averages, and account information.
 /// This is a public endpoint that doesn't require authentication.
 #[utoipa::path(
@@ -14,9 +14,7 @@ use axum::{extract::State, http::StatusCode, Json};
         (status = INTERNAL_SERVER_ERROR, description = "Internal server error")
     )
 )]
-pub async fn get_stats(
-    State(state): State<AppState>,
-) -> Result<Json<Stats>, StatusCode> {
+pub async fn get_stats(State(state): State<AppState>) -> Result<Json<Stats>, StatusCode> {
     // Query the stats table (should only have one row with id = 1)
     let stats = sqlx::query_as!(
         Stats,
