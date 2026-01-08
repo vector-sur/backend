@@ -3,11 +3,12 @@ use crate::models::drone::Drone;
 use crate::routes::users::login::AppState;
 use axum::{Json, extract::State, http::StatusCode};
 
-/// List user's drones
+/// List user's active drones
 ///
-/// Returns all drones registered by the authenticated user.
+/// Returns all active drones registered by the authenticated user.
 /// Only users with a valid JWT token can access this endpoint.
 /// The user_id is extracted from the JWT token.
+/// Inactive drones (active = FALSE) are not included in the response.
 #[utoipa::path(
     get,
     path = "/drones/list",
@@ -31,7 +32,7 @@ pub async fn list_drones(
         .parse()
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    // Query all drones for this user
+    // Query all active drones for this user
     let drones = sqlx::query_as!(
         Drone,
         r#"
@@ -39,9 +40,10 @@ pub async fn list_drones(
             id,
             name,
             number,
-            user_id
+            user_id,
+            active
         FROM drones 
-        WHERE user_id = ?
+        WHERE user_id = ? AND active = TRUE
         ORDER BY created_at DESC
         "#,
         user_id

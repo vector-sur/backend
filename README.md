@@ -129,6 +129,7 @@ classDiagram
         +name: string
         +description: string
         +owner_id: int
+        +location_id: int | null
         +verified: boolean
         +active: boolean
     }
@@ -161,6 +162,7 @@ classDiagram
         +name: string
         +number: int
         +user_id: int
+        +active: boolean
     }
 
     class Report {

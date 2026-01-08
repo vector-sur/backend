@@ -21,6 +21,12 @@ pub struct RegisterDroneResponse {
 }
 
 #[derive(Serialize, utoipa::ToSchema)]
+pub struct DeleteDroneResponse {
+    pub message: String,
+    pub drone_id: i32,
+}
+
+#[derive(Serialize, utoipa::ToSchema)]
 pub struct Drone {
     /// Drone ID
     pub id: i32,
@@ -30,4 +36,6 @@ pub struct Drone {
     pub number: i32,
     /// Owner user ID
     pub user_id: i32,
+    /// Whether the drone is active
+    pub active: i8,
 }
