@@ -20,7 +20,10 @@ use routes::{
     users::update::update_user,
 };
 use std::error::Error;
-use utoipa::openapi::security::{HttpAuthScheme, HttpBuilder, SecurityScheme};
+use utoipa::openapi::{
+    security::{HttpAuthScheme, HttpBuilder, SecurityScheme},
+    tag::TagBuilder,
+};
 use utoipa_axum::{router::OpenApiRouter, routes};
 use utoipa_swagger_ui::SwaggerUi;
 
@@ -53,6 +56,25 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     .build(),
             ),
         );
+
+    api.tags = Some(vec![
+        TagBuilder::new()
+            .name("Authentication")
+            .description(Some("Authentication endpoints"))
+            .build(),
+        TagBuilder::new()
+            .name("Users")
+            .description(Some("User management endpoints"))
+            .build(),
+        TagBuilder::new()
+            .name("Drones")
+            .description(Some("Drone management endpoints"))
+            .build(),
+        TagBuilder::new()
+            .name("Stats")
+            .description(Some("Statistics endpoints"))
+            .build(),
+    ]);
 
     let app = Router::new()
         .merge(api_router)

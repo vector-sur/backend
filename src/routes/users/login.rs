@@ -17,6 +17,7 @@ pub struct AppState {
 #[utoipa::path(
     post,
     path = "/auth/login",
+    tag = "Authentication",
     request_body = LoginRequest,
     responses(
         (status = OK, description = "Login successful", body = AuthResponse),

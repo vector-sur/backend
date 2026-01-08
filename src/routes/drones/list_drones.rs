@@ -11,6 +11,7 @@ use axum::{Json, extract::State, http::StatusCode};
 #[utoipa::path(
     get,
     path = "/drones/list",
+    tag = "Drones",
     responses(
         (status = OK, description = "Drones retrieved successfully", body = Vec<Drone>),
         (status = UNAUTHORIZED, description = "Invalid or missing JWT token"),

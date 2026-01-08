@@ -9,6 +9,7 @@ use axum::{Json, extract::State, http::StatusCode};
 #[utoipa::path(
     get,
     path = "/stats",
+    tag = "Stats",
     responses(
         (status = OK, description = "Statistics retrieved successfully", body = Stats),
         (status = INTERNAL_SERVER_ERROR, description = "Internal server error")

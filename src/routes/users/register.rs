@@ -13,6 +13,7 @@ use axum::{
 #[utoipa::path(
     post,
     path = "/auth/register",
+    tag = "Authentication",
     request_body = RegisterRequest,
     responses(
         (status = OK, description = "Registration successful", body = RegisterResponse),

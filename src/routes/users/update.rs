@@ -20,6 +20,7 @@ pub struct UpdateUserResponse {
 #[utoipa::path(
     put,
     path = "/users/{id}",
+    tag = "Users",
     params(
         ("id" = i32, Path, description = "User database id to update")
     ),

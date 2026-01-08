@@ -10,6 +10,7 @@ use axum::{Json, extract::State, http::StatusCode};
 #[utoipa::path(
     post,
     path = "/drones/register",
+    tag = "Drones",
     request_body = RegisterDroneRequest,
     responses(
         (status = OK, description = "Drone registered successfully", body = RegisterDroneResponse),
