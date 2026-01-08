@@ -1,14 +1,17 @@
 mod config;
+mod handlers;
 mod middleware;
 mod models;
 mod routes;
 
+use crate::routes::stats::stats::__path_get_stats;
 use crate::routes::users::delete::__path_delete_user;
 use crate::routes::users::login::__path_login;
 use crate::routes::users::register::__path_register_handler;
 use crate::routes::users::update::__path_update_user;
 use axum::{Router, routing::get};
 use routes::protected::protected;
+use routes::stats::stats::get_stats;
 use routes::users::delete::delete_user;
 use routes::users::login::{AppState, login};
 use routes::users::register::register_handler;
@@ -31,6 +34,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .routes(routes!(register_handler))
         .routes(routes!(delete_user))
         .routes(routes!(update_user))
+        .routes(routes!(get_stats))
         .split_for_parts();
 
     api.components

@@ -13,6 +13,13 @@ pub struct AuthResponse {
     pub username: String,
 }
 
+#[derive(Serialize, utoipa::ToSchema)]
+pub struct RegisterResponse {
+    pub user_id: i32,
+    pub username: String,
+    pub message: String,
+}
+
 #[derive(Deserialize, utoipa::ToSchema)]
 pub struct RegisterRequest {
     pub username: String,

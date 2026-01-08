@@ -46,7 +46,9 @@ classDiagram
 
         +cancellation_rate: float
 
-        +accounts: int
+        +active_accounts: int
+        +inactive_accounts: int
+        +total_accounts: int
     }
 
     class Order {

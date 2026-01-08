@@ -1,3 +1,4 @@
+use crate::handlers::stats::deactivate_user_stats;
 use crate::middleware::auth::Claims;
 use crate::routes::users::login::AppState;
 use axum::{
@@ -65,6 +66,11 @@ pub async fn delete_user(
     if result.rows_affected() == 0 {
         return Err(StatusCode::NOT_FOUND);
     }
+
+    // Update stats: decrement active_accounts and increment inactive_accounts
+    deactivate_user_stats(&state.db)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     Ok(Json(DeleteUserResponse {
         message: format!("User {} has been deactivated", user_id),
