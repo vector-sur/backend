@@ -14,7 +14,9 @@ use crate::routes::{
     product::delete::__path_delete_product,
     product::list_by_business::__path_list_products_by_business,
     product::register::__path_register_product, product::update::__path_update_product,
-    stats::stats_::__path_get_stats, users::delete::__path_delete_user, users::login::__path_login,
+    stats::stats_::__path_get_stats,
+    trips::register::__path_register_trip,
+    users::delete::__path_delete_user, users::login::__path_login,
     users::register::__path_register_handler, users::update::__path_update_user,
 };
 use axum::Router;
@@ -33,6 +35,7 @@ use routes::{
     product::register::register_product,
     product::update::update_product,
     stats::stats_::get_stats,
+    trips::register::register_trip,
     users::delete::delete_user,
     users::login::{AppState, login},
     users::register::register_handler,
@@ -73,6 +76,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .routes(routes!(delete_product))
         .routes(routes!(list_products_by_business))
         .routes(routes!(register_order))
+        .routes(routes!(register_trip))
         .split_for_parts();
 
     api.components
@@ -111,6 +115,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         TagBuilder::new()
             .name("Orders")
             .description(Some("Order management endpoints"))
+            .build(),
+        TagBuilder::new()
+            .name("Trips")
+            .description(Some("Trip management endpoints"))
             .build(),
         TagBuilder::new()
             .name("Stats")
