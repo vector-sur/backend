@@ -10,6 +10,7 @@ use crate::routes::{
     business::set_location::__path_set_business_location, business::update::__path_update_business,
     drones::delete::__path_delete_drone, drones::list_drones::__path_list_drones,
     drones::register::__path_register_drone,
+    orders::register::__path_register_order,
     product::delete::__path_delete_product,
     product::list_by_business::__path_list_products_by_business,
     product::register::__path_register_product, product::update::__path_update_product,
@@ -26,6 +27,7 @@ use routes::{
     drones::delete::delete_drone,
     drones::list_drones::list_drones,
     drones::register::register_drone,
+    orders::register::register_order,
     product::delete::delete_product,
     product::list_by_business::list_products_by_business,
     product::register::register_product,
@@ -70,6 +72,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .routes(routes!(update_product))
         .routes(routes!(delete_product))
         .routes(routes!(list_products_by_business))
+        .routes(routes!(register_order))
         .split_for_parts();
 
     api.components
@@ -104,6 +107,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         TagBuilder::new()
             .name("Drones")
             .description(Some("Drone management endpoints"))
+            .build(),
+        TagBuilder::new()
+            .name("Orders")
+            .description(Some("Order management endpoints"))
             .build(),
         TagBuilder::new()
             .name("Stats")

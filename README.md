@@ -64,6 +64,7 @@ classDiagram
 
     class OrderDetail {
         +amount: int
+        +price: float
     }
 
     class Stats {
@@ -85,10 +86,11 @@ classDiagram
     }
 
     class Order {
-        +number: int
+        +flight_number: string
         +date: date_time
         +state: OrderState
-        +price: float
+        +total_price: float
+        +approved: boolean
     }
     
     class Trip {
