@@ -8,9 +8,8 @@ use crate::routes::{
     stats::stats_::__path_get_stats, users::delete::__path_delete_user, users::login::__path_login,
     users::register::__path_register_handler, users::update::__path_update_user,
 };
-use axum::{Router, routing::get};
+use axum::Router;
 use routes::{
-    protected::protected,
     stats::stats_::get_stats,
     users::delete::delete_user,
     users::login::{AppState, login},
@@ -52,7 +51,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let app = Router::new()
         .merge(api_router)
-        .route("/protected", get(protected))
         .merge(SwaggerUi::new("/swagger-ui").url("/api-docs/openapi.json", api))
         .with_state(state);
 
