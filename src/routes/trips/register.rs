@@ -74,14 +74,11 @@ pub async fn register_trip(
     }
 
     // Verify that the order exists
-    sqlx::query!(
-        "SELECT id FROM orders WHERE id = ?",
-        payload.order_id
-    )
-    .fetch_optional(&state.db)
-    .await
-    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
-    .ok_or(StatusCode::NOT_FOUND)?;
+    sqlx::query!("SELECT id FROM orders WHERE id = ?", payload.order_id)
+        .fetch_optional(&state.db)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
+        .ok_or(StatusCode::NOT_FOUND)?;
 
     // Get the business location from the order's products
     // We assume all products in an order belong to the same business

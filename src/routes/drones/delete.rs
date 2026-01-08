@@ -62,13 +62,10 @@ pub async fn delete_drone(
     }
 
     // Deactivate the drone by setting active = FALSE
-    let result = sqlx::query!(
-        "UPDATE drones SET active = FALSE WHERE id = ?",
-        drone_id
-    )
-    .execute(&state.db)
-    .await
-    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let result = sqlx::query!("UPDATE drones SET active = FALSE WHERE id = ?", drone_id)
+        .execute(&state.db)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     // Check if any row was affected
     if result.rows_affected() == 0 {
