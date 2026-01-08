@@ -1,4 +1,38 @@
-# Backend
+<div align="center">
+
+  <a href="https://github.com/vector-sur/.github/blob/main/images/logo.svg"><img src="https://github.com/vector-sur/.github/blob/main/images/logo.svg" alt="VectorSur logo" width="200"></a>
+
+# Vector Sur Backend
+
+</div>
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+    User((End User))
+    AdminUser((Administrator))
+
+    subgraph SystemBoundary ["System"]
+        direction TB
+        WebApp["Web App"]
+        MobileApp["Mobile App"]
+        AdminPanel["Admin Dashboard"]
+        
+        Backend["Backend API"]
+        Database[("Database")]
+    end
+
+    User <--> WebApp
+    User <--> MobileApp
+    AdminUser <--> AdminPanel
+
+    WebApp <-->|JSON/HTTPS| Backend
+    MobileApp <-->|JSON/HTTPS| Backend
+    AdminPanel <-->|JSON/HTTPS| Backend
+
+    Backend <--> Database
+```
 
 ## Class Diagram
 
