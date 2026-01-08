@@ -42,7 +42,6 @@ classDiagram
     Order *-- User
     Trip *--  Order
     Trip *-- Location : from
-    Trip *-- Location : to
     Trip *-- Drone
     Trip --o Report
     Report *-- ReportCategory
@@ -54,6 +53,7 @@ classDiagram
     Order *--* OrderDetail
     OrderDetail *--* Product
     User -- Person
+    Business --o Location
 
     class Person {
         +name: string
