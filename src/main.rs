@@ -4,48 +4,58 @@ mod middleware;
 mod models;
 mod routes;
 
-use crate::routes::{
-    business::delete::__path_delete_business, business::list::__path_list_businesses,
-    business::register::__path_register_business,
-    business::set_location::__path_set_business_location, business::update::__path_update_business,
-    drones::delete::__path_delete_drone, drones::list_drones::__path_list_drones,
-    drones::register::__path_register_drone, orders::register::__path_register_order,
-    product::delete::__path_delete_product,
-    product::list_by_business::__path_list_products_by_business,
-    product::register::__path_register_product, product::update::__path_update_product,
-    stats::stats_::__path_get_stats, trips::register::__path_register_trip,
-    users::delete::__path_delete_user, users::login::__path_login,
-    users::register::__path_register_handler, users::update::__path_update_user,
-};
+use std::error::Error;
+
 use axum::Router;
 use routes::{
-    business::delete::delete_business,
-    business::list::list_businesses,
-    business::register::register_business,
-    business::set_location::set_business_location,
-    business::update::update_business,
-    drones::delete::delete_drone,
-    drones::list_drones::list_drones,
-    drones::register::register_drone,
+    business::{
+        delete::delete_business, list::list_businesses, register::register_business,
+        set_location::set_business_location, update::update_business,
+    },
+    drones::{delete::delete_drone, list_drones::list_drones, register::register_drone},
     orders::register::register_order,
-    product::delete::delete_product,
-    product::list_by_business::list_products_by_business,
-    product::register::register_product,
-    product::update::update_product,
+    product::{
+        delete::delete_product, list_by_business::list_products_by_business,
+        register::register_product, update::update_product,
+    },
     stats::stats_::get_stats,
     trips::register::register_trip,
-    users::delete::delete_user,
-    users::login::{AppState, login},
-    users::register::register_handler,
-    users::update::update_user,
+    users::{
+        delete::delete_user,
+        login::{AppState, login},
+        register::register_handler,
+        update::update_user,
+    },
 };
-use std::error::Error;
 use utoipa::openapi::{
     security::{HttpAuthScheme, HttpBuilder, SecurityScheme},
     tag::TagBuilder,
 };
 use utoipa_axum::{router::OpenApiRouter, routes};
 use utoipa_swagger_ui::SwaggerUi;
+
+use crate::routes::{
+    business::{
+        delete::__path_delete_business, list::__path_list_businesses,
+        register::__path_register_business, set_location::__path_set_business_location,
+        update::__path_update_business,
+    },
+    drones::{
+        delete::__path_delete_drone, list_drones::__path_list_drones,
+        register::__path_register_drone,
+    },
+    orders::register::__path_register_order,
+    product::{
+        delete::__path_delete_product, list_by_business::__path_list_products_by_business,
+        register::__path_register_product, update::__path_update_product,
+    },
+    stats::stats_::__path_get_stats,
+    trips::register::__path_register_trip,
+    users::{
+        delete::__path_delete_user, login::__path_login, register::__path_register_handler,
+        update::__path_update_user,
+    },
+};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {

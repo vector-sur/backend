@@ -1,11 +1,10 @@
-use crate::middleware::auth::Claims;
-use crate::models::product::Product;
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
 };
+
+use crate::{middleware::auth::Claims, models::product::Product, routes::users::login::AppState};
 
 /// List products by business
 ///

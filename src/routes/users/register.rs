@@ -1,10 +1,13 @@
-use super::login::AppState;
-use crate::handlers::stats::increment_user_stats;
-use crate::middleware::auth::hash_password;
-use crate::models::user::{RegisterRequest, RegisterResponse};
 use axum::{
     extract::{Json, State},
     http::StatusCode,
+};
+
+use super::login::AppState;
+use crate::{
+    handlers::stats::increment_user_stats,
+    middleware::auth::hash_password,
+    models::user::{RegisterRequest, RegisterResponse},
 };
 
 /// Register endpoint
@@ -31,7 +34,8 @@ pub async fn register_handler(
 
     // Insert user into database
     sqlx::query!(
-        "INSERT INTO users (username, name, lastname, phone, email, password_hash) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (username, name, lastname, phone, email, password_hash) VALUES (?, ?, \
+         ?, ?, ?, ?)",
         payload.username,
         payload.name,
         payload.lastname,

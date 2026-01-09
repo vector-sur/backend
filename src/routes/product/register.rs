@@ -1,7 +1,10 @@
-use crate::middleware::auth::Claims;
-use crate::models::product::{RegisterProductRequest, RegisterProductResponse};
-use crate::routes::users::login::AppState;
 use axum::{Json, extract::State, http::StatusCode};
+
+use crate::{
+    middleware::auth::Claims,
+    models::product::{RegisterProductRequest, RegisterProductResponse},
+    routes::users::login::AppState,
+};
 
 /// Register a new product
 ///

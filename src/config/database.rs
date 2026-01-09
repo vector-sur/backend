@@ -1,5 +1,6 @@
-use sqlx::mysql::{MySqlPool, MySqlPoolOptions};
 use std::time::Duration;
+
+use sqlx::mysql::{MySqlPool, MySqlPoolOptions};
 
 /// Creates and returns a MySQL connection pool.
 pub async fn create_pool() -> Result<MySqlPool, sqlx::Error> {

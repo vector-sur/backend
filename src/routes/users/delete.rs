@@ -1,12 +1,14 @@
-use crate::handlers::stats::deactivate_user_stats;
-use crate::middleware::auth::Claims;
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
 };
 use serde::Serialize;
+
+use crate::{
+    handlers::stats::deactivate_user_stats, middleware::auth::Claims,
+    routes::users::login::AppState,
+};
 
 #[derive(Serialize, utoipa::ToSchema)]
 pub struct DeleteUserResponse {

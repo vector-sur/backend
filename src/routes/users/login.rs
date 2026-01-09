@@ -1,10 +1,13 @@
-use crate::middleware::auth::{create_token, verify_password};
-use crate::models::user::{AuthResponse, LoginRequest};
 use axum::{
     extract::{Json, State},
     http::StatusCode,
 };
 use sqlx::mysql::MySqlPool;
+
+use crate::{
+    middleware::auth::{create_token, verify_password},
+    models::user::{AuthResponse, LoginRequest},
+};
 
 #[derive(Clone)]
 pub struct AppState {

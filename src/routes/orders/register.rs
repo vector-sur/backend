@@ -1,7 +1,10 @@
-use crate::middleware::auth::Claims;
-use crate::models::order::{RegisterOrderRequest, RegisterOrderResponse};
-use crate::routes::users::login::AppState;
 use axum::{Json, extract::State, http::StatusCode};
+
+use crate::{
+    middleware::auth::Claims,
+    models::order::{RegisterOrderRequest, RegisterOrderResponse},
+    routes::users::login::AppState,
+};
 
 /// Register a new order
 ///

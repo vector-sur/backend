@@ -1,10 +1,13 @@
-use crate::middleware::auth::Claims;
-use crate::models::location::{SetLocationRequest, SetLocationResponse};
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
+};
+
+use crate::{
+    middleware::auth::Claims,
+    models::location::{SetLocationRequest, SetLocationResponse},
+    routes::users::login::AppState,
 };
 
 /// Set location for a business

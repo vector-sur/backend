@@ -1,7 +1,6 @@
-use crate::middleware::auth::Claims;
-use crate::models::business::Business;
-use crate::routes::users::login::AppState;
 use axum::{Json, extract::State, http::StatusCode};
+
+use crate::{middleware::auth::Claims, models::business::Business, routes::users::login::AppState};
 
 /// List user's active businesses
 ///

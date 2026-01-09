@@ -1,7 +1,10 @@
-use crate::middleware::auth::Claims;
-use crate::models::drone::{RegisterDroneRequest, RegisterDroneResponse};
-use crate::routes::users::login::AppState;
 use axum::{Json, extract::State, http::StatusCode};
+
+use crate::{
+    middleware::auth::Claims,
+    models::drone::{RegisterDroneRequest, RegisterDroneResponse},
+    routes::users::login::AppState,
+};
 
 /// Register a new drone
 ///

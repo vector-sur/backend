@@ -1,0 +1,35 @@
+# Rustfmt configuration file
+# For more options, see: https://rust-lang.github.io/rustfmt/
+
+# Maximum line width
+max_width = 100
+
+# Number of spaces per tab
+tab_spaces = 4
+
+# Use field init shorthand if possible
+use_field_init_shorthand = true
+
+# Use try shorthand
+use_try_shorthand = true
+
+# Format string literals where necessary
+format_strings = true
+
+# Merge imports
+imports_granularity = "Crate"
+
+# Group imports
+group_imports = "StdExternalCrate"
+
+# Reorder imports
+reorder_imports = true
+
+# Reorder modules
+reorder_modules = true
+
+# Remove nested parens
+remove_nested_parens = true
+
+# Edition
+edition = "2024"

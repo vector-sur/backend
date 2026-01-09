@@ -1,10 +1,13 @@
-use crate::middleware::auth::Claims;
-use crate::models::product::{UpdateProductRequest, UpdateProductResponse};
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
+};
+
+use crate::{
+    middleware::auth::Claims,
+    models::product::{UpdateProductRequest, UpdateProductResponse},
+    routes::users::login::AppState,
 };
 
 /// Update product endpoint

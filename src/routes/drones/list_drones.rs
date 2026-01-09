@@ -1,7 +1,6 @@
-use crate::middleware::auth::Claims;
-use crate::models::drone::Drone;
-use crate::routes::users::login::AppState;
 use axum::{Json, extract::State, http::StatusCode};
+
+use crate::{middleware::auth::Claims, models::drone::Drone, routes::users::login::AppState};
 
 /// List user's active drones
 ///

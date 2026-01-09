@@ -1,12 +1,15 @@
-use crate::middleware::auth::{Claims, hash_password};
-use crate::models::user::UpdateUserRequest;
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
 };
 use serde::Serialize;
+
+use crate::{
+    middleware::auth::{Claims, hash_password},
+    models::user::UpdateUserRequest,
+    routes::users::login::AppState,
+};
 
 #[derive(Serialize, utoipa::ToSchema)]
 pub struct UpdateUserResponse {

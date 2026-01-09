@@ -1,10 +1,11 @@
-use crate::middleware::auth::Claims;
-use crate::models::drone::DeleteDroneResponse;
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
+};
+
+use crate::{
+    middleware::auth::Claims, models::drone::DeleteDroneResponse, routes::users::login::AppState,
 };
 
 /// Delete (deactivate) drone endpoint

@@ -1,10 +1,12 @@
-use crate::middleware::auth::Claims;
-use crate::models::product::DeleteProductResponse;
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
+};
+
+use crate::{
+    middleware::auth::Claims, models::product::DeleteProductResponse,
+    routes::users::login::AppState,
 };
 
 /// Delete (deactivate) product endpoint

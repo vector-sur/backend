@@ -1,6 +1,6 @@
-use crate::models::stats::Stats;
-use crate::routes::users::login::AppState;
 use axum::{Json, extract::State, http::StatusCode};
+
+use crate::{models::stats::Stats, routes::users::login::AppState};
 
 /// Get global statistics
 ///

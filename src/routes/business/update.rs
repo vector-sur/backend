@@ -1,10 +1,13 @@
-use crate::middleware::auth::Claims;
-use crate::models::business::{UpdateBusinessRequest, UpdateBusinessResponse};
-use crate::routes::users::login::AppState;
 use axum::{
     Json,
     extract::{Path, State},
     http::StatusCode,
+};
+
+use crate::{
+    middleware::auth::Claims,
+    models::business::{UpdateBusinessRequest, UpdateBusinessResponse},
+    routes::users::login::AppState,
 };
 
 /// Update business endpoint

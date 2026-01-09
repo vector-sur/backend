@@ -1,0 +1,17 @@
+# Clippy configuration file
+# For more lints, see: https://rust-lang.github.io/rust-clippy/master/
+
+# Warn on missing documentation
+# doc-valid-idents = ["GitHub", "GitLab", "API", "JWT", "SQL", "HTTP", "HTTPS"]
+
+# Cognitive complexity threshold
+cognitive-complexity-threshold = 30
+
+# Too many arguments threshold
+too-many-arguments-threshold = 7
+
+# Type complexity threshold
+type-complexity-threshold = 250
+
+# Single char binding names threshold
+single-char-binding-names-threshold = 4
